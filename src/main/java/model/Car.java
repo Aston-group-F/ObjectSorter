@@ -1,5 +1,8 @@
 package model;
 
+import validation.Validator;
+import constants.CarConstants;
+
 public class Car {
 
     private final String model;
@@ -59,6 +62,21 @@ public class Car {
 
         public Car build() {
 
+            if (!Validator.validModel(model)) {
+
+                throw new IllegalArgumentException("Incorrect car model");
+            }
+
+            if (!Validator.validPower(power)) {
+
+                throw new IllegalArgumentException("Minimum car power - " + CarConstants.MIN_VALID_POWER);
+            }
+
+            if (!Validator.validYear(year)) {
+
+                throw new IllegalArgumentException("The year of production cannot be less than - " + CarConstants.FIRST_CAR_YEAR);
+            }
+
             return new Car(this);
         }
     }
@@ -66,6 +84,6 @@ public class Car {
     @Override
     public String toString() {
 
-        return "Car{model='" + model + "', power=" + power + ", year=" + year + "}";
+        return "Car { model = " + model + ", power = " + power + ", year = " + year + "}";
     }
 }
