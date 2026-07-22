@@ -2,7 +2,7 @@ package validation;
 
 import constants.CarConstants;
 
-public class Validator {
+public final class Validator {
 
     public static boolean validModel(String model) {
 
@@ -11,7 +11,7 @@ public class Validator {
 
     public static boolean validPower(int power) {
 
-        return power >= CarConstants.MIN_VALID_POWER;
+        return power >= CarConstants.MIN_VALID_POWER && power <= CarConstants.MAX_VALID_POWER;
     }
 
     public static boolean validYear(int year) {
