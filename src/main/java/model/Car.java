@@ -69,7 +69,7 @@ public class Car {
 
             if (!Validator.validPower(power)) {
 
-                throw new IllegalArgumentException("Minimum car power - " + CarConstants.MIN_VALID_POWER);
+                throw new IllegalArgumentException("The car power should be between " + CarConstants.MIN_VALID_POWER + " and " + CarConstants.MAX_VALID_POWER);
             }
 
             if (!Validator.validYear(year)) {
