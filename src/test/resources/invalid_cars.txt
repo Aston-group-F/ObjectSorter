@@ -1,0 +1,5 @@
+Toyota Camry;2020;203
+BMW X5;invalid_year;340
+Mercedes E-Class;2021;invalid_power
+Kia Rio;2020
+Audi A4;2018;190
