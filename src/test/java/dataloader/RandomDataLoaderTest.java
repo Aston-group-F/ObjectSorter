@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 class RandomDataLoaderTest {
     @Test
     public void validCountTest() {
-        IDataLoader randomLoader = new RandomDataLoader();
+        DataLoader randomLoader = new RandomDataLoader();
 
         List<Car> carsList = randomLoader.load(5);
 
@@ -24,7 +24,7 @@ class RandomDataLoaderTest {
 
     @Test
     public void invalidCountTest() {
-        IDataLoader randomLoader = new RandomDataLoader();
+        DataLoader randomLoader = new RandomDataLoader();
 
         assertThrows(IllegalArgumentException.class, () -> randomLoader.load(0));
         assertThrows(IllegalArgumentException.class, () -> randomLoader.load(-10));

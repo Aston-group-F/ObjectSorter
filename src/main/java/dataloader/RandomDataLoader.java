@@ -3,11 +3,14 @@ package dataloader;
 import constants.CarConstants;
 
 import model.Car;
+import model.CarList;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RandomDataLoader extends AbstractDataLoader{
 
@@ -19,12 +22,10 @@ public class RandomDataLoader extends AbstractDataLoader{
             "Audi A4", "Ford Escape", "Volkswagen Polo", "Renault Logan", "MINI Cooper" );
 
     @Override
-    protected List<Car> loadData(int carsCount) {
-        List<Car> carsList = new ArrayList<>(carsCount);
-        for (int i = 0; i < carsCount; i++) {
-            carsList.add(generateCar());
-        }
-        return carsList;
+    protected CarList loadData(int carsCount) {
+        return Stream.generate(this::generateCar)
+                .limit(carsCount)
+                .collect(Collectors.toCollection(CarList::new));
     }
 
     private Car generateCar() {
