@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import dataloader.IDataLoader;
+import dataloader.DataLoader;
 import dataloader.RandomDataLoader;
 import model.Car;
 import services.InputService;
@@ -10,7 +10,7 @@ import services.InputService;
 public class ConsoleApp {
 
     private final Scanner scanner = new Scanner(System.in);
-    private final IDataLoader randomLoader = new RandomDataLoader();
+    private final DataLoader randomLoader = new RandomDataLoader();
     private List<Car> cars = new ArrayList<>();
 
     public void run() throws Exception {
