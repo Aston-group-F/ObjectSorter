@@ -1,0 +1,5 @@
+Toyota Camry;2020;203
+BMW X5;2019;340
+Mercedes E-Class;2021;255
+Audi A4;2018;190
+Honda Accord;2022;192
