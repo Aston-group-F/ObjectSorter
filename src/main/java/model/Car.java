@@ -74,7 +74,7 @@ public class Car {
 
             if (!Validator.validYear(year)) {
 
-                throw new IllegalArgumentException("The year of production cannot be less than - " + CarConstants.FIRST_CAR_YEAR);
+                throw new IllegalArgumentException("The car year should be between " + CarConstants.FIRST_CAR_YEAR + " and " + CarConstants.CURRENT_YEAR);
             }
 
             return new Car(this);

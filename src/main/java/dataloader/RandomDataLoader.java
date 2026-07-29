@@ -5,7 +5,6 @@ import constants.CarConstants;
 import model.Car;
 import model.CarList;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -33,7 +32,7 @@ public class RandomDataLoader extends AbstractDataLoader{
         return Car.builder()
                 .model(CARS_MODELS_LIST.get(rand.nextInt(CARS_MODELS_LIST.size())))
                 .power(rand.nextInt(CarConstants.MIN_VALID_POWER, CarConstants.MAX_VALID_POWER + 1))
-                .year(rand.nextInt(CarConstants.FIRST_CAR_YEAR, LocalDateTime.now().getYear() + 1))
+                .year(rand.nextInt(CarConstants.FIRST_CAR_YEAR, CarConstants.CURRENT_YEAR + 1))
                 .build();
     }
 }
