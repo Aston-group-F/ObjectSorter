@@ -1,5 +1,7 @@
 package constants;
 
+import java.time.LocalDateTime;
+
 public final class CarConstants {
 
     private CarConstants() { }
@@ -8,4 +10,5 @@ public final class CarConstants {
     public static final int MAX_VALID_POWER = 2300;
 
     public static final int FIRST_CAR_YEAR = 1886;
+    public static final int CURRENT_YEAR = LocalDateTime.now().getYear();
 }

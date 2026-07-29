@@ -3,14 +3,18 @@ import java.util.List;
 import java.util.Scanner;
 
 import dataloader.DataLoader;
+import dataloader.InputDataLoader;
 import dataloader.RandomDataLoader;
 import model.Car;
-import services.InputService;
+import utils.InputUtils;
 
 public class ConsoleApp {
 
     private final Scanner scanner = new Scanner(System.in);
+
+    private final DataLoader inputDataLoader = new InputDataLoader(scanner);
     private final DataLoader randomLoader = new RandomDataLoader();
+
     private List<Car> cars = new ArrayList<>();
 
     public void run() throws Exception {
@@ -31,25 +35,20 @@ public class ConsoleApp {
 
                 case 1 -> {
 
-                    cars.clear();
+                    cars.clear(); // TODO delete at final (now for testing)
 
-                    System.out.print("Count: ");
-                    var n = scanner.nextInt();
+                    var n = InputUtils.readPositiveInt(scanner, "Cars count: ");
 
-                    for (int i = 0; i < n; i++)
-                        cars.add(InputService.inputCar());
+                    cars = inputDataLoader.load(n);
                 }
 
                 case 2 -> {
 
-                    cars.clear();
+                    cars.clear(); // TODO delete at final (now for testing)
 
-                    System.out.print("Count: ");
-                    var n = scanner.nextInt();
+                    var n = InputUtils.readPositiveInt(scanner, "Cars count: "); // TODO show size of random list
 
                     cars = randomLoader.load(n);
-
-
                 }
 
                 case 3 -> {

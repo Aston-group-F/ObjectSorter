@@ -16,6 +16,6 @@ public final class Validator {
 
     public static boolean validYear(int year) {
 
-        return year >= CarConstants.FIRST_CAR_YEAR;
+        return year >= CarConstants.FIRST_CAR_YEAR && year <= CarConstants.CURRENT_YEAR;
     }
 }
