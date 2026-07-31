@@ -55,8 +55,8 @@ public class FileDataLoader extends AbstractDataLoader{
             try {
                 return Car.builder()
                         .model(parts[0].trim())
-                        .year(Integer.parseInt(parts[1].trim()))
-                        .power(Integer.parseInt(parts[2].trim()))
+                        .power(Integer.parseInt(parts[1].trim()))
+                        .year(Integer.parseInt(parts[2].trim()))
                         .build();
             } catch (NumberFormatException e) {
                 System.err.println("Parsing error in line: " + line);

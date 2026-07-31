@@ -1,0 +1,11 @@
+Toyota;150;2020
+BMW;250;2022
+Audi;180;2018
+Mercedes-Benz;220;2021
+Volkswagen;140;2019
+Honda;190;2023
+Ford;210;2020
+Hyundai;160;2022
+Kia;155;2021
+Mazda;185;2019
+Skoda;150;2020
