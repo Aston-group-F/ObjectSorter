@@ -83,7 +83,6 @@ public class Car {
 
     @Override
     public String toString() {
-
-        return "Car { model = " + model + ", power = " + power + ", year = " + year + "}";
+        return "Car { model = " + model + ", power = " + power + ", year = " + year + " }";
     }
 }
