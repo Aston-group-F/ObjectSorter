@@ -6,7 +6,7 @@ import dataloader.FileDataLoader;
 import dataloader.InputDataLoader;
 import dataloader.RandomDataLoader;
 import model.*;
-import sorting.comparator.CarComparators;
+import sorting.comparator.CarComparedField;
 import sorting.factory.SortStrategyFactory;
 import sorting.strategy.SortStrategy;
 import utils.InputUtils;
@@ -65,36 +65,27 @@ public class ConsoleApp {
                 }
 
                 case 5 -> {
-
                     menu.showSortAlgorithms();
+                    int sortAlgoChoice = InputUtils.readIntInRange(scanner, "Choose option: ", 7);
 
-                    SortStrategy<Car> strategy = SortStrategyFactory.create(scanner.nextInt());
+                    menu.showUseConditional();
+                    boolean useConditional = InputUtils.readBoolean(scanner, "Choose option: ");
 
-                    menu.showCarFields();
+                    menu.showCarFields(useConditional);
+                    int field = InputUtils.readIntInRange(scanner, "Choose option: ", useConditional ? 3 : 4);
 
-                    var field = scanner.nextInt(); // TODO add check number at 1-3 to InputUtils ???
-
+                    CarComparedField comparedField = null;
                     switch (field) {
-
-                        case 1 -> cars.sort(
-                                strategy,
-                                CarComparators.byModel()
-                        );
-
-                        case 2 -> cars.sort(
-                                strategy,
-                                CarComparators.byPower()
-                        );
-
-                        case 3 -> cars.sort(
-                                strategy,
-                                CarComparators.byYear()
-                        );
-
-                        default -> System.out.println("Wrong field");
+                        case 1 -> comparedField = CarComparedField.POWER;
+                        case 2 -> comparedField = CarComparedField.YEAR;
+                        case 3 -> comparedField = CarComparedField.MODEL;
                     }
-
-                    System.out.println("Sorted.");
+                    if (comparedField == null) {
+                        System.err.println("Incorrect value entered");
+                    } else {
+                        SortStrategyFactory.create(sortAlgoChoice, useConditional).sort(cars, comparedField);
+                        System.out.println("Sorted.");
+                    }
                 }
 
                 case 0 -> {

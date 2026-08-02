@@ -1,20 +1,39 @@
 package sorting.algorithms;
 
+import sorting.comparator.ComparedField;
 import sorting.strategy.SortStrategy;
 
-import java.util.Comparator;
 import java.util.List;
+import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
 
 public class ConditionalSortStrategy<T> implements SortStrategy<T> {
+    private final SortStrategy<T> innerStrategy;
 
-    @Override
-    public void sort(List<T> list, Comparator<T> comparator) {
-
-        conditionalSort();
+    public ConditionalSortStrategy(SortStrategy<T> innerStrategy) {
+        this.innerStrategy = innerStrategy;
     }
 
-    private void conditionalSort() {
+    @Override
+    public void sort(List<T> list, ComparedField<T> field) {
+        ToIntFunction<T> fieldMapper = field.getToIntFunction();
+        if (fieldMapper == null) {
+            throw new UnsupportedOperationException();
+        }
+        List<T> evenElements = list.stream()
+                .filter(element -> fieldMapper.applyAsInt(element) % 2 == 0)
+                .collect(Collectors.toList());
+        if (!evenElements.isEmpty()) {
+            innerStrategy.sort(evenElements, field);
+        }
 
-        // TODO dop zadanie chetnie ne chetnie
+        int evenIndex = 0;
+        for (int i = 0; i < list.size() && evenIndex < evenElements.size(); i++) {
+            T current = list.get(i);
+            if (fieldMapper.applyAsInt(current) % 2 == 0) {
+                list.set(i, evenElements.get(evenIndex++));
+            }
+        }
+
     }
 }

@@ -1,16 +1,16 @@
 package sorting.algorithms;
 
+import sorting.comparator.CarComparedField;
+import sorting.comparator.ComparedField;
 import sorting.strategy.SortStrategy;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class BubbleSortStrategy<T> implements SortStrategy<T> {
-
     @Override
-    public void sort(List<T> list, Comparator<T> comparator) {
-
-        bubbleSort(list, comparator);
+    public void sort(List<T> list, ComparedField<T> field) {
+        bubbleSort(list, field.getComparator());
     }
 
     private void bubbleSort(List<T> list, Comparator<T> comparator) {

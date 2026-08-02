@@ -1,5 +1,6 @@
 package sorting.algorithms;
 
+import sorting.comparator.ComparedField;
 import sorting.strategy.SortStrategy;
 
 import java.util.Comparator;
@@ -8,9 +9,8 @@ import java.util.List;
 public class SelectionSortStrategy<T> implements SortStrategy<T> {
 
     @Override
-    public void sort(List<T> list, Comparator<T> comparator) {
-
-        selectionSort(list, comparator);
+    public void sort(List<T> list, ComparedField<T> field) {
+        selectionSort(list, field.getComparator());
     }
 
     private void selectionSort(List<T> list, Comparator<T> comparator) {
