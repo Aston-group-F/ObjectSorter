@@ -7,15 +7,11 @@ public final class InputUtils {
     private InputUtils() { }
 
     public static int readPositiveInt(Scanner scanner, String message) {
-
         while (true) {
-
             int value = readInt(scanner, message);
-
             if (value > 0) {
                 return value;
             }
-
             System.out.println("The number must be greater than 0.");
         }
     }
@@ -45,13 +41,37 @@ public final class InputUtils {
 
             System.out.print(message);
 
-            String model = scanner.nextLine().trim();
+            String inputString = scanner.nextLine().trim();
 
-            if (!model.isEmpty()) {
-                return model;
+            if (!inputString.isEmpty()) {
+                return inputString;
             }
 
-            System.out.println("Model cannot be empty.");
+            System.out.println("Input string cannot be empty.");
+        }
+    }
+
+    public static int readIntInRange(Scanner scanner, String message, int upperBound) {
+        while (true) {
+            int value = readInt(scanner, message);
+            if (value > 0 && value < upperBound) {
+                return value;
+            }
+            System.out.println("The number must be in range [1;" + (upperBound - 1) + "]");
+        }
+    }
+
+    public static boolean readBoolean(Scanner scanner, String message) {
+
+
+        while (true) {
+            String inputString = readString(scanner, message).toLowerCase();
+            if (inputString.equals("y") || inputString.equals("yes")) {
+                return true;
+            } else if (inputString.equals("n") || inputString.equals("no")) {
+                return false;
+            }
+            System.out.println("The value Y/Yes or N/No must be entered.");
         }
     }
 }

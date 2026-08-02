@@ -1,5 +1,6 @@
 package sorting.algorithms;
 
+import sorting.comparator.ComparedField;
 import sorting.strategy.SortStrategy;
 
 import java.util.ArrayList;
@@ -9,9 +10,8 @@ import java.util.List;
 public class MergeSortStrategy<T> implements SortStrategy<T> {
 
     @Override
-    public void sort(List<T> list, Comparator<T> comparator) {
-
-        mergeSort(list, 0, list.size() - 1, comparator);
+    public void sort(List<T> list, ComparedField<T> field) {
+        mergeSort(list, 0, list.size() - 1, field.getComparator());
     }
 
 
