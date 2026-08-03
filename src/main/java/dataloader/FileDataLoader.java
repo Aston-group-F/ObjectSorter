@@ -17,14 +17,12 @@ import java.util.stream.Stream;
 public class FileDataLoader extends AbstractDataLoader{
     private final String filePath;
 
-
     public FileDataLoader(String filePath) {
         if(filePath == null || filePath.isEmpty()) {
             throw new IllegalArgumentException("File path cannot be null or empty");
         }
         this.filePath = filePath;
     }
-
 
     @Override
     protected CarList loadData(int carsCount) {
@@ -38,13 +36,12 @@ public class FileDataLoader extends AbstractDataLoader{
                     .collect(Collectors.toCollection(CarList::new));
 
             if (cars.size() < carsCount) {
-                throw new IllegalArgumentException("The actual number of cars in the file turned out to be less than the expected number");
+                throw new IllegalArgumentException("The actual number of cars in the file turned "
+                    + "out to be less than the expected number");
             }
-
-            System.out.println("\nThe number of cars entered by the user (" + carsCount + ") is recorded. If there were others in the file, they will not be processed");
-
+            System.out.println("\nThe number of cars entered by the user (" + carsCount + ") "
+                + "is recorded. If there were others in the file, they will not be processed");
             return cars;
-
         } catch (IOException e) {
             throw new RuntimeException("File reading error: " + filePath);
         }
@@ -64,7 +61,8 @@ public class FileDataLoader extends AbstractDataLoader{
                 return null;
             }
         } else {
-            System.err.printf("Incorrect row entry format: '%s', the data from this row will not be parsed.%n", line);
+            System.err.printf("Incorrect row entry format: '%s', the data from this row will "
+                + "not be parsed.%n", line);
             return null;
         }
     }

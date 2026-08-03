@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class HeapSortStrategy<T> implements SortStrategy<T> {
-
     @Override
     public void sort(List<T> list, ComparedField<T> field) {
         heapSort(list, field.getComparator());
