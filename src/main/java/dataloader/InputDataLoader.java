@@ -21,6 +21,7 @@ public class InputDataLoader extends AbstractDataLoader {
         CarList cars = new CarList();
 
         for (int i = 0; i < carsCount; i++) {
+
             System.out.println("\nCar #" + (i + 1));
             cars.add(inputCar());
         }
