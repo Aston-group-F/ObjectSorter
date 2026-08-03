@@ -17,36 +17,26 @@ public final class InputUtils {
     }
 
     public static int readInt(Scanner scanner, String message) {
-
         while (true) {
-
             System.out.print(message);
-
             if (scanner.hasNextInt()) {
-
                 int value = scanner.nextInt();
                 scanner.nextLine();
 
                 return value;
             }
-
             System.out.println("Please enter an integer.");
             scanner.nextLine();
         }
     }
 
     public static String readString(Scanner scanner, String message) {
-
         while (true) {
-
             System.out.print(message);
-
             String inputString = scanner.nextLine().trim();
-
             if (!inputString.isEmpty()) {
                 return inputString;
             }
-
             System.out.println("Input string cannot be empty.");
         }
     }
@@ -62,8 +52,6 @@ public final class InputUtils {
     }
 
     public static boolean readBoolean(Scanner scanner, String message) {
-
-
         while (true) {
             String inputString = readString(scanner, message).toLowerCase();
             if (inputString.equals("y") || inputString.equals("yes")) {

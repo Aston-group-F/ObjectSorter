@@ -14,7 +14,6 @@ import sorting.factory.SortStrategyFactory;
 import utils.InputUtils;
 
 public class ConsoleApp {
-
     private final Scanner scanner = new Scanner(System.in);
     private final ConsoleMenu menu = new ConsoleMenu();
 
@@ -26,40 +25,35 @@ public class ConsoleApp {
     private final CarList cars = new CarList();
 
     public void run() throws Exception {
-
         System.out.println("\nWelcome to Car Collection App");
 
         while (true) {
-
             menu.showMainMenu();
-
-            var choice = scanner.nextInt();
+            var choice = InputUtils.readInt(scanner, menu.CHOOSE_OPTION);
 
             switch (choice) {
-
                 case 1 -> {
-
                     menu.showFillingMethod();
                     var method = InputUtils.readIntInRange(scanner, menu.CHOOSE_OPTION, 4);
                     var n = InputUtils.readPositiveInt(scanner, menu.CARS_COUNT);
 
                     switch (method) {
                         case 1 -> {
-
                             cars.addAll(inputLoader.load(n));
                             menu.showAdded();
                         }
                         case 2 -> {
-
                             cars.addAll(randomLoader.load(n));
                             menu.showAdded();
                         }
-                        case 3 -> cars.addAll(fileLoader.load(n));
+                        case 3 -> {
+                            cars.addAll(fileLoader.load(n));
+                            menu.showAdded();
+                        }
                     }
                 }
 
                 case 2 -> {
-
                     cars.forEach(System.out::println);
                 }
 
@@ -88,35 +82,26 @@ public class ConsoleApp {
                 }
 
                 case 4 -> {
-
                     scanner.nextLine();
-
                     System.out.println("\nEnter the car data for search:");
-
                     var car = inputLoader.load(1);
                     var count = cars.countOccurrences(car.get(0));
-
                     System.out.println("\nThis car is found in collection: " + count + " times");
                 }
 
                 case 5 -> {
-
                     if (cars.isEmpty()) {
-
                         System.err.println("Cars list is empty");
                     }
-
                     dataExporter.export(cars);
                 }
 
-                case 9 -> {
-
+                case 6 -> {
                     cars.clear();
-                    System.out.println("The cars have been cleared");
+                    System.out.println("The cars list have been cleared");
                 }
 
                 case 0 -> {
-
                     return;
                 }
             }

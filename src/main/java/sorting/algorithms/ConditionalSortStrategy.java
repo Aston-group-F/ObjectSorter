@@ -34,6 +34,5 @@ public class ConditionalSortStrategy<T> implements SortStrategy<T> {
                 list.set(i, evenElements.get(evenIndex++));
             }
         }
-
     }
 }
