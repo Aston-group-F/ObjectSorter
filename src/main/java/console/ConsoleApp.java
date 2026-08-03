@@ -92,13 +92,14 @@ public class ConsoleApp {
                 case 5 -> {
                     if (cars.isEmpty()) {
                         System.err.println("Cars list is empty");
+                    } else {
+                        dataExporter.export(cars);
                     }
-                    dataExporter.export(cars);
                 }
 
                 case 6 -> {
                     cars.clear();
-                    System.out.println("The cars list have been cleared");
+                    System.out.println("The cars list has been cleared");
                 }
 
                 case 0 -> {

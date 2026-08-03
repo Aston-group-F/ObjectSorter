@@ -18,7 +18,8 @@ public class ConditionalSortStrategy<T> implements SortStrategy<T> {
     public void sort(List<T> list, ComparedField<T> field) {
         ToIntFunction<T> fieldMapper = field.getToIntFunction();
         if (fieldMapper == null) {
-            throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException(
+                "Conditional sorting is only available for numeric fields");
         }
         List<T> evenElements = list.stream()
                 .filter(element -> fieldMapper.applyAsInt(element) % 2 == 0)
