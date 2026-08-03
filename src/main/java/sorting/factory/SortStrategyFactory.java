@@ -1,7 +1,6 @@
 package sorting.factory;
 
 import sorting.algorithms.*;
-import sorting.comparator.CarComparedField;
 import sorting.strategy.SortStrategy;
 import model.Car;
 
@@ -16,7 +15,6 @@ public class SortStrategyFactory {
             case 5 -> new MergeSortStrategy<>();
             case 6 -> new HeapSortStrategy<>();
             default -> throw new IllegalArgumentException("Unknown sorting algorithm");
-            // TODO delete error, cycle while ctobi console ne padala ???
         };
     }
 
