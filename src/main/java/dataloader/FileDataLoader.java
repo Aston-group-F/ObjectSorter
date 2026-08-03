@@ -2,6 +2,7 @@ package dataloader;
 
 import model.Car;
 import model.CarList;
+import utils.FileUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,13 +51,13 @@ public class FileDataLoader extends AbstractDataLoader{
     }
 
     private Car parseLine(String line) {
-        String[] parts = line.split(";");
+        String[] parts = line.split(FileUtils.SEPARATOR);
         if (parts.length >= 3) {
             try {
                 return Car.builder()
                         .model(parts[0].trim())
-                        .power(Integer.parseInt(parts[1].trim()))
-                        .year(Integer.parseInt(parts[2].trim()))
+                        .year(Integer.parseInt(parts[1].trim()))
+                        .power(Integer.parseInt(parts[2].trim()))
                         .build();
             } catch (NumberFormatException e) {
                 System.err.println("Parsing error in line: " + line);

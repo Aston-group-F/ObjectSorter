@@ -1,9 +1,9 @@
 package sorting.strategy;
 
-import java.util.Comparator;
+import sorting.comparator.ComparedField;
+
 import java.util.List;
 
 public interface SortStrategy<T> {
-
-    void sort(List<T> list, Comparator<T> comparator);
+    void sort(List<T> list, ComparedField<T> field);
 }

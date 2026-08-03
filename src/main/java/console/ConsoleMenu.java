@@ -15,7 +15,6 @@ public class ConsoleMenu {
 
 
     public void showSortAlgorithms() {
-
         System.out.println("Choose sorting algorithm:");
         System.out.println("1. Bubble Sort");
         System.out.println("2. Selection Sort");
@@ -25,12 +24,16 @@ public class ConsoleMenu {
         System.out.println("6. Heap Sort");
     }
 
+    public void showUseConditional() {
+        System.out.println("Choose will conditional sorting be used? (y/n)");
+    }
 
-    public void showCarFields() {
-
+    public void showCarFields(boolean useConditional) {
         System.out.println("Choose field:");
-        System.out.println("1. Model");
-        System.out.println("2. Power");
-        System.out.println("3. Year");
+        System.out.println("1. Power");
+        System.out.println("2. Year");
+        if (!useConditional) {
+            System.out.println("3. Model");
+        }
     }
 }

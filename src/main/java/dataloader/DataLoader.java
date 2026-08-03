@@ -1,9 +1,6 @@
 package dataloader;
 
-import model.Car;
 import model.CarList;
-
-import java.util.List;
 
 public interface DataLoader {
     /**

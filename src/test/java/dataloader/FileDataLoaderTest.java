@@ -1,5 +1,6 @@
 package dataloader;
 
+import model.CarList;
 import org.junit.jupiter.api.Test;
 
 import model.Car;
@@ -26,9 +27,9 @@ class FileDataLoaderTest {
     @Test
     void validDataTest() {
         String filePath = RESOURCES_PATH + "valid_cars.txt";
-        FileDataLoader dataLoader = new FileDataLoader(filePath);
+        DataLoader dataLoader = new FileDataLoader(filePath);
 
-        List<Car> cars = dataLoader.loadData(5);
+        CarList cars = dataLoader.load(5);
 
         assertNotNull(cars);
         assertEquals(5, cars.size());
@@ -47,9 +48,9 @@ class FileDataLoaderTest {
     @Test
     void invalidCarsCountTest() {
         String filePath = RESOURCES_PATH + "valid_cars.txt";
-        FileDataLoader dataLoader = new FileDataLoader(filePath);
+        DataLoader dataLoader = new FileDataLoader(filePath);
 
-        List<Car> cars = dataLoader.loadData(3);
+        CarList cars = dataLoader.load(3);
 
         assertNotNull(cars);
         assertEquals(3, cars.size());
@@ -58,15 +59,15 @@ class FileDataLoaderTest {
         assertEquals(2021, lastCar.getYear());
         assertEquals(255, lastCar.getPower());
 
-        assertThrows(IllegalArgumentException.class, () -> dataLoader.loadData(7));
+        assertThrows(IllegalArgumentException.class, () -> dataLoader.load(7));
     }
 
     @Test
     void dataWithEmptyLinesTest() {
         String filePath = RESOURCES_PATH + "valid_cars_with_empty_lines.txt";
-        FileDataLoader dataLoader = new FileDataLoader(filePath);
+        DataLoader dataLoader = new FileDataLoader(filePath);
 
-        List<Car> cars = dataLoader.loadData(3);
+        List<Car> cars = dataLoader.load(3);
 
         assertEquals(3, cars.size());
     }
@@ -74,9 +75,9 @@ class FileDataLoaderTest {
     @Test
     void invalidDataTest() {
         String filePath = RESOURCES_PATH + "invalid_cars.txt";
-        FileDataLoader dataLoader = new FileDataLoader(filePath);
+        DataLoader dataLoader = new FileDataLoader(filePath);
 
-        List<Car> cars = dataLoader.loadData(2);
+        List<Car> cars = dataLoader.load(2);
 
         assertEquals(2, cars.size());
         assertEquals("Toyota Camry", cars.get(0).getModel());
@@ -86,16 +87,16 @@ class FileDataLoaderTest {
     @Test
     void emptyFileTest() {
         String filePath = RESOURCES_PATH + "empty_file.txt";
-        FileDataLoader dataLoader = new FileDataLoader(filePath);
+        DataLoader dataLoader = new FileDataLoader(filePath);
 
-        assertThrows(RuntimeException.class, () -> dataLoader.loadData(1));
+        assertThrows(RuntimeException.class, () -> dataLoader.load(1));
     }
 
     @Test
     void invalidFileTest() {
         String filePath = RESOURCES_PATH + "invalid_file.txt";
-        FileDataLoader dataLoader = new FileDataLoader(filePath);
+        DataLoader dataLoader = new FileDataLoader(filePath);
 
-        assertThrows(RuntimeException.class, () -> dataLoader.loadData(5));
+        assertThrows(RuntimeException.class, () -> dataLoader.load(5));
     }
 }
