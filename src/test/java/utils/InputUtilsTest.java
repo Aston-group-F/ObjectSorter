@@ -4,14 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InputUtilsTest {
-
     @Test
     void readPositiveIntValidTest() {
 
-        Scanner scanner = new Scanner("25\n");
+        Scanner scanner = new Scanner("""
+            25
+            """);
 
         int value = InputUtils.readPositiveInt(scanner, "Number: ");
 
@@ -48,9 +49,9 @@ class InputUtilsTest {
     void readIntInvalidInputTest() {
 
         Scanner scanner = new Scanner("""
-            abc
-            123
-            """);
+                abc
+                123
+                """);
 
         int value = InputUtils.readInt(scanner, "Number: ");
 
@@ -58,15 +59,68 @@ class InputUtilsTest {
     }
 
     @Test
+    public void readIntInRangeTest() {
+        Scanner scanner = new Scanner("""
+                
+                string
+                
+                
+                0.25
+                
+                -10
+                
+                100
+                5
+                """);
+        assertEquals(5, InputUtils.readIntInRange(scanner, "", 6));
+    }
+
+    @Test
     void readStringEmptyInputTest() {
 
         Scanner scanner = new Scanner("""
-            
-            Toyota
-            """);
+                
+                Toyota
+                """);
 
         String value = InputUtils.readString(scanner, "Model: ");
 
         assertEquals("Toyota", value);
+    }
+
+    @Test
+    public void readBooleanTest() {
+        Scanner scanner = new Scanner("""
+                string
+                
+                -10
+                
+                y
+                """);
+        assertTrue(InputUtils.readBoolean(scanner, ""));
+        scanner = new Scanner("""
+                string
+                
+                -10
+                
+                yes
+                """);
+        assertTrue(InputUtils.readBoolean(scanner, ""));
+        scanner = new Scanner("""
+                string
+                
+                -10
+                
+                n
+                """);
+        assertFalse(InputUtils.readBoolean(scanner, ""));
+        scanner = new Scanner("""
+                string
+                
+                -10
+                
+                no
+                """);
+        assertFalse(InputUtils.readBoolean(scanner, ""));
     }
 }

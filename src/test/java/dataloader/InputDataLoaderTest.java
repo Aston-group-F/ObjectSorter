@@ -12,17 +12,13 @@ class InputDataLoaderTest {
 
     @Test
     void validInputTest() {
-
         String input = """
                 Toyota
                 200
                 2020
                 """;
-
         Scanner scanner = new Scanner(input);
-
         DataLoader loader = new InputDataLoader(scanner);
-
         CarList cars = loader.load(1);
 
         assertNotNull(cars);
@@ -37,7 +33,6 @@ class InputDataLoaderTest {
 
     @Test
     void validMultipleCarsTest() {
-
         String input = """
             Toyota
             200
@@ -48,23 +43,18 @@ class InputDataLoaderTest {
             """;
 
         Scanner scanner = new Scanner(input);
-
         DataLoader loader = new InputDataLoader(scanner);
-
         CarList cars = loader.load(2);
 
         assertEquals(2, cars.size());
-
         assertEquals("Toyota", cars.get(0).getModel());
         assertEquals("BMW", cars.get(1).getModel());
-
         assertEquals(200, cars.get(0).getPower());
         assertEquals(300, cars.get(1).getPower());
     }
 
     @Test
     void invalidCarsCountTest() {
-
         Scanner scanner = new Scanner("");
 
         DataLoader loader = new InputDataLoader(scanner);
@@ -75,7 +65,6 @@ class InputDataLoaderTest {
 
     @Test
     void emptyModelTest() {
-
         String input = """
 
             Toyota
@@ -84,9 +73,7 @@ class InputDataLoaderTest {
             """;
 
         Scanner scanner = new Scanner(input);
-
         DataLoader loader = new InputDataLoader(scanner);
-
         CarList cars = loader.load(1);
 
         assertNotNull(cars);
@@ -102,7 +89,6 @@ class InputDataLoaderTest {
 
     @Test
     void invalidPowerInputTest() {
-
         String input = """
             Toyota
             abc
@@ -111,9 +97,7 @@ class InputDataLoaderTest {
             """;
 
         Scanner scanner = new Scanner(input);
-
         DataLoader loader = new InputDataLoader(scanner);
-
         CarList cars = loader.load(1);
 
         assertNotNull(cars);
@@ -128,7 +112,6 @@ class InputDataLoaderTest {
 
     @Test
     void invalidYearInputTest() {
-
         String input = """
             Toyota
             200
@@ -137,9 +120,7 @@ class InputDataLoaderTest {
             """;
 
         Scanner scanner = new Scanner(input);
-
         DataLoader loader = new InputDataLoader(scanner);
-
         CarList cars = loader.load(1);
 
         assertNotNull(cars);
