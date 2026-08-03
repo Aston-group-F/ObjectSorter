@@ -3,6 +3,8 @@ package model;
 import validation.Validator;
 import constants.CarConstants;
 
+import java.util.Objects;
+
 public class Car {
 
     private final String model;
@@ -84,5 +86,23 @@ public class Car {
     @Override
     public String toString() {
         return "Car { model = " + model + ", power = " + power + ", year = " + year + " }";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o)
+            return true;
+
+        if (!(o instanceof Car car))
+            return false;
+
+        return power == car.power && year == car.year && model.equalsIgnoreCase(car.model);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(model.toLowerCase(), power, year);
     }
 }

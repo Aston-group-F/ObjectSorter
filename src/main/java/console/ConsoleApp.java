@@ -1,6 +1,9 @@
 package console;
 
 import java.util.Scanner;
+
+import dataexporter.DataExporter;
+import dataexporter.FileDataExporter;
 import dataloader.DataLoader;
 import dataloader.FileDataLoader;
 import dataloader.InputDataLoader;
@@ -8,7 +11,6 @@ import dataloader.RandomDataLoader;
 import model.*;
 import sorting.comparator.CarComparedField;
 import sorting.factory.SortStrategyFactory;
-import sorting.strategy.SortStrategy;
 import utils.InputUtils;
 
 public class ConsoleApp {
@@ -19,8 +21,9 @@ public class ConsoleApp {
     private final DataLoader inputLoader = new InputDataLoader(scanner);
     private final DataLoader randomLoader = new RandomDataLoader();
     private final DataLoader fileLoader = new FileDataLoader("src/main/resources/cars.txt");
+    private final DataExporter dataExporter = new FileDataExporter("src/main/resources/exportedCars.txt");
 
-    private CarList cars = new CarList();
+    private final CarList cars = new CarList();
 
     public void run() throws Exception {
 
@@ -34,29 +37,22 @@ public class ConsoleApp {
 
                 case 1 -> {
 
-                    cars.clear(); // TODO delete at final (now for testing)
-
-                    var n = InputUtils.readPositiveInt(scanner, "Cars count: ");
-
-                    cars = inputLoader.load(n);
+                    var n = InputUtils.readPositiveInt(scanner, ConsoleMenu.CARS_COUNT);
+                    cars.addAll(inputLoader.load(n));
+                    menu.showAdded();
                 }
 
                 case 2 -> {
 
-                    cars.clear(); // TODO delete at final (now for testing)
-
-                    var n = InputUtils.readPositiveInt(scanner, "Cars count: "); // TODO show size of random list
-
-                    cars = randomLoader.load(n);
+                    var n = InputUtils.readPositiveInt(scanner, ConsoleMenu.CARS_COUNT);
+                    cars.addAll(randomLoader.load(n));
+                    menu.showAdded();
                 }
 
                 case 3 -> {
 
-                    cars.clear(); // TODO delete at final (now for testing)
-
-                    var n = InputUtils.readPositiveInt(scanner, "Cars count: ");
-
-                    cars = fileLoader.load(n);
+                    var n = InputUtils.readPositiveInt(scanner, ConsoleMenu.CARS_COUNT);
+                    cars.addAll(fileLoader.load(n));
                 }
 
                 case 4 -> {
@@ -66,13 +62,13 @@ public class ConsoleApp {
 
                 case 5 -> {
                     menu.showSortAlgorithms();
-                    int sortAlgoChoice = InputUtils.readIntInRange(scanner, "Choose option: ", 7);
+                    int sortAlgoChoice = InputUtils.readIntInRange(scanner, ConsoleMenu.CHOOSE_OPTION, 7);
 
                     menu.showUseConditional();
-                    boolean useConditional = InputUtils.readBoolean(scanner, "Choose option: ");
+                    boolean useConditional = InputUtils.readBoolean(scanner, ConsoleMenu.CHOOSE_OPTION);
 
                     menu.showCarFields(useConditional);
-                    int field = InputUtils.readIntInRange(scanner, "Choose option: ", useConditional ? 3 : 4);
+                    int field = InputUtils.readIntInRange(scanner, ConsoleMenu.CHOOSE_OPTION, useConditional ? 3 : 4);
 
                     CarComparedField comparedField = null;
                     switch (field) {
@@ -86,6 +82,28 @@ public class ConsoleApp {
                         SortStrategyFactory.create(sortAlgoChoice, useConditional).sort(cars, comparedField);
                         System.out.println("Sorted.");
                     }
+                }
+
+                case 6 -> {
+
+                    scanner.nextLine();
+
+                    System.out.println("\nEnter the car data for search:");
+
+                    var car = inputLoader.load(1);
+                    var count = cars.countOccurrences(car.get(0));
+
+                    System.out.println("\nThis car is found in collection: " + count + " times");
+                }
+
+                case 7 -> {
+
+                    if (cars.isEmpty()) {
+
+                        System.err.println("Cars list is empty");
+                    }
+
+                    dataExporter.export(cars);
                 }
 
                 case 0 -> {
