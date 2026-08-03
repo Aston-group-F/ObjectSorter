@@ -1,104 +1,107 @@
 package console;
 
 import java.util.Scanner;
+
+import dataexporter.DataExporter;
+import dataexporter.FileDataExporter;
 import dataloader.DataLoader;
 import dataloader.FileDataLoader;
 import dataloader.InputDataLoader;
 import dataloader.RandomDataLoader;
 import model.*;
-import sorting.comparator.CarComparators;
+import sorting.comparator.CarComparedField;
 import sorting.factory.SortStrategyFactory;
-import sorting.strategy.SortStrategy;
 import utils.InputUtils;
 
 public class ConsoleApp {
-
     private final Scanner scanner = new Scanner(System.in);
     private final ConsoleMenu menu = new ConsoleMenu();
 
     private final DataLoader inputLoader = new InputDataLoader(scanner);
     private final DataLoader randomLoader = new RandomDataLoader();
     private final DataLoader fileLoader = new FileDataLoader("src/main/resources/cars.txt");
+    private final DataExporter dataExporter = new FileDataExporter("src/main/resources/exportedCars.txt");
 
-    private CarList cars = new CarList();
+    private final CarList cars = new CarList();
 
     public void run() throws Exception {
+        System.out.println("\nWelcome to Car Collection App");
 
         while (true) {
-
             menu.showMainMenu();
-
-            var choice = scanner.nextInt();
+            var choice = InputUtils.readInt(scanner, menu.CHOOSE_OPTION);
 
             switch (choice) {
-
                 case 1 -> {
+                    menu.showFillingMethod();
+                    var method = InputUtils.readIntInRange(scanner, menu.CHOOSE_OPTION, 4);
+                    var n = InputUtils.readPositiveInt(scanner, menu.CARS_COUNT);
 
-                    cars.clear(); // TODO delete at final (now for testing)
-
-                    var n = InputUtils.readPositiveInt(scanner, "Cars count: ");
-
-                    cars = inputLoader.load(n);
+                    switch (method) {
+                        case 1 -> {
+                            cars.addAll(inputLoader.load(n));
+                            menu.showAdded();
+                        }
+                        case 2 -> {
+                            cars.addAll(randomLoader.load(n));
+                            menu.showAdded();
+                        }
+                        case 3 -> {
+                            cars.addAll(fileLoader.load(n));
+                            menu.showAdded();
+                        }
+                    }
                 }
 
                 case 2 -> {
-
-                    cars.clear(); // TODO delete at final (now for testing)
-
-                    var n = InputUtils.readPositiveInt(scanner, "Cars count: "); // TODO show size of random list
-
-                    cars = randomLoader.load(n);
-                }
-
-                case 3 -> {
-
-                    cars.clear(); // TODO delete at final (now for testing)
-
-                    var n = InputUtils.readPositiveInt(scanner, "Cars count: ");
-
-                    cars = fileLoader.load(n);
-                }
-
-                case 4 -> {
-
                     cars.forEach(System.out::println);
                 }
 
-                case 5 -> {
-
+                case 3 -> {
                     menu.showSortAlgorithms();
+                    int sortAlgoChoice = InputUtils.readIntInRange(scanner, menu.CHOOSE_OPTION, 7);
 
-                    SortStrategy<Car> strategy = SortStrategyFactory.create(scanner.nextInt());
+                    menu.showUseConditional();
+                    boolean useConditional = InputUtils.readBoolean(scanner, menu.CHOOSE_OPTION);
 
-                    menu.showCarFields();
+                    menu.showCarFields(useConditional);
+                    int field = InputUtils.readIntInRange(scanner, menu.CHOOSE_OPTION, useConditional ? 3 : 4);
 
-                    var field = scanner.nextInt(); // TODO add check number at 1-3 to InputUtils ???
-
+                    CarComparedField comparedField = null;
                     switch (field) {
-
-                        case 1 -> cars.sort(
-                                strategy,
-                                CarComparators.byModel()
-                        );
-
-                        case 2 -> cars.sort(
-                                strategy,
-                                CarComparators.byPower()
-                        );
-
-                        case 3 -> cars.sort(
-                                strategy,
-                                CarComparators.byYear()
-                        );
-
-                        default -> System.out.println("Wrong field");
+                        case 1 -> comparedField = CarComparedField.POWER;
+                        case 2 -> comparedField = CarComparedField.YEAR;
+                        case 3 -> comparedField = CarComparedField.MODEL;
                     }
+                    if (comparedField == null) {
+                        System.err.println("Incorrect value entered");
+                    } else {
+                        SortStrategyFactory.create(sortAlgoChoice, useConditional).sort(cars, comparedField);
+                        System.out.println("Sorted.");
+                    }
+                }
 
-                    System.out.println("Sorted.");
+                case 4 -> {
+                    scanner.nextLine();
+                    System.out.println("\nEnter the car data for search:");
+                    var car = inputLoader.load(1);
+                    var count = cars.countOccurrences(car.get(0));
+                    System.out.println("\nThis car is found in collection: " + count + " times");
+                }
+
+                case 5 -> {
+                    if (cars.isEmpty()) {
+                        System.err.println("Cars list is empty");
+                    }
+                    dataExporter.export(cars);
+                }
+
+                case 6 -> {
+                    cars.clear();
+                    System.out.println("The cars list have been cleared");
                 }
 
                 case 0 -> {
-
                     return;
                 }
             }

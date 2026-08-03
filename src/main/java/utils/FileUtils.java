@@ -3,7 +3,6 @@ package utils;
 import model.Car;
 
 public final class FileUtils {
-
     public static final String SEPARATOR = ";";
 
     public static String representativeString(Car car) {

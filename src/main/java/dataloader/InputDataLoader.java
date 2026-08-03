@@ -5,35 +5,31 @@ import model.CarList;
 import utils.InputUtils;
 
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class InputDataLoader extends AbstractDataLoader {
 
     private final Scanner scanner;
 
     public InputDataLoader(Scanner scanner) {
-
         this.scanner = scanner;
     }
 
     @Override
     protected CarList loadData(int carsCount) {
-
         CarList cars = new CarList();
 
-        for (int i = 0; i < carsCount; i++) {
+        IntStream.range(0, carsCount).forEach(i -> {
             System.out.println("\nCar #" + (i + 1));
             cars.add(inputCar());
-        }
+        });
 
         return cars;
     }
 
     private Car inputCar() {
-
         while (true) {
-
             try {
-
                 String model = InputUtils.readString(scanner, "Model: ");
                 int power = InputUtils.readInt(scanner, "Power: ");
                 int year = InputUtils.readInt(scanner,"Year: ");
@@ -43,9 +39,7 @@ public class InputDataLoader extends AbstractDataLoader {
                         .power(power)
                         .year(year)
                         .build();
-
             } catch (IllegalArgumentException e) {
-
                 System.out.println("Error: " + e.getMessage());
                 System.out.println("Try again.");
             }
