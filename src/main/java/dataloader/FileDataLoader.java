@@ -41,7 +41,7 @@ public class FileDataLoader extends AbstractDataLoader{
                 throw new IllegalArgumentException("The actual number of cars in the file turned out to be less than the expected number");
             }
 
-            System.out.println("The number of cars entered by the user (" + carsCount + ") is recorded. If there were others in the file, they will not be processed");
+            System.out.println("\nThe number of cars entered by the user (" + carsCount + ") is recorded. If there were others in the file, they will not be processed");
 
             return cars;
 

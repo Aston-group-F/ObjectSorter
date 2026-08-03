@@ -1,6 +1,5 @@
 package sorting.algorithms;
 
-import sorting.comparator.CarComparedField;
 import sorting.comparator.ComparedField;
 import sorting.strategy.SortStrategy;
 
