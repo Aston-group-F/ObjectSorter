@@ -99,31 +99,6 @@ class InputDataLoaderTest {
         assertEquals(2020, car.getYear());
     }
 
-    @Test
-    void invalidPowerInputTest() {
-
-        String input = """
-            Toyota
-            abc
-            200
-            2020
-            """;
-
-        Scanner scanner = new Scanner(input);
-
-        DataLoader loader = new InputDataLoader(scanner);
-
-        CarList cars = loader.load(1);
-
-        assertNotNull(cars);
-        assertEquals(1, cars.size());
-
-        Car car = cars.get(0);
-
-        assertEquals("Toyota", car.getModel());
-        assertEquals(200, car.getPower());
-        assertEquals(2020, car.getYear());
-    }
 
     @Test
     void invalidPowerInputTest() {

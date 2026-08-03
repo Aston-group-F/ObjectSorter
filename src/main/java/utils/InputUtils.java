@@ -2,10 +2,23 @@ package utils;
 
 import java.util.Scanner;
 
+/**
+ * Utility class for reading and validating user input.
+ */
 public final class InputUtils {
 
+    /**
+     * * Prevents instantiation of the utility class.
+     */
     private InputUtils() { }
 
+    /**
+     * Reads a positive integer from the user.
+     *
+     * @param scanner scanner used to read input
+     * @param message prompt displayed to the user
+     * @return positive integer entered by the user
+     */
     public static int readPositiveInt(Scanner scanner, String message) {
         while (true) {
             int value = readInt(scanner, message);
@@ -16,6 +29,14 @@ public final class InputUtils {
         }
     }
 
+    /**
+     * Reads an integer from the user.
+     * Repeats the request until a valid integer is entered.
+     *
+     * @param scanner scanner used to read input
+     * @param message prompt displayed to the user
+     * @return entered integer
+     */
     public static int readInt(Scanner scanner, String message) {
         while (true) {
             System.out.print(message);
@@ -30,6 +51,13 @@ public final class InputUtils {
         }
     }
 
+    /**
+     * Reads a non-empty string from the user.
+     *
+     * @param scanner scanner used to read input
+     * @param message prompt displayed to the user
+     * @return non-empty string
+     */
     public static String readString(Scanner scanner, String message) {
         while (true) {
             System.out.print(message);
@@ -41,6 +69,14 @@ public final class InputUtils {
         }
     }
 
+    /**
+     * Reads an integer within the specified range.
+     *
+     * @param scanner scanner used to read input
+     * @param message prompt displayed to the user
+     * @param upperBound exclusive upper bound
+     * @return integer in the range from 1 to {@code upperBound - 1}
+     */
     public static int readIntInRange(Scanner scanner, String message, int upperBound) {
         while (true) {
             int value = readInt(scanner, message);
@@ -51,6 +87,14 @@ public final class InputUtils {
         }
     }
 
+    /**
+     * Reads a boolean value from the user.
+     * Accepts {@code y}/{@code yes} or {@code n}/{@code no}.
+     *
+     * @param scanner scanner used to read input
+     * @param message prompt displayed to the user
+     * @return {@code true} if the user entered yes, otherwise {@code false}
+     */
     public static boolean readBoolean(Scanner scanner, String message) {
         while (true) {
             String inputString = readString(scanner, message).toLowerCase();
