@@ -27,6 +27,8 @@ public class ConsoleApp {
 
     public void run() throws Exception {
 
+        System.out.println("\nWelcome to Car Collection App");
+
         while (true) {
 
             menu.showMainMenu();
@@ -37,38 +39,39 @@ public class ConsoleApp {
 
                 case 1 -> {
 
-                    var n = InputUtils.readPositiveInt(scanner, ConsoleMenu.CARS_COUNT);
-                    cars.addAll(inputLoader.load(n));
-                    menu.showAdded();
+                    menu.showFillingMethod();
+                    var method = InputUtils.readIntInRange(scanner, menu.CHOOSE_OPTION, 4);
+                    var n = InputUtils.readPositiveInt(scanner, menu.CARS_COUNT);
+
+                    switch (method) {
+                        case 1 -> {
+
+                            cars.addAll(inputLoader.load(n));
+                            menu.showAdded();
+                        }
+                        case 2 -> {
+
+                            cars.addAll(randomLoader.load(n));
+                            menu.showAdded();
+                        }
+                        case 3 -> cars.addAll(fileLoader.load(n));
+                    }
                 }
 
                 case 2 -> {
 
-                    var n = InputUtils.readPositiveInt(scanner, ConsoleMenu.CARS_COUNT);
-                    cars.addAll(randomLoader.load(n));
-                    menu.showAdded();
-                }
-
-                case 3 -> {
-
-                    var n = InputUtils.readPositiveInt(scanner, ConsoleMenu.CARS_COUNT);
-                    cars.addAll(fileLoader.load(n));
-                }
-
-                case 4 -> {
-
                     cars.forEach(System.out::println);
                 }
 
-                case 5 -> {
+                case 3 -> {
                     menu.showSortAlgorithms();
-                    int sortAlgoChoice = InputUtils.readIntInRange(scanner, ConsoleMenu.CHOOSE_OPTION, 7);
+                    int sortAlgoChoice = InputUtils.readIntInRange(scanner, menu.CHOOSE_OPTION, 7);
 
                     menu.showUseConditional();
-                    boolean useConditional = InputUtils.readBoolean(scanner, ConsoleMenu.CHOOSE_OPTION);
+                    boolean useConditional = InputUtils.readBoolean(scanner, menu.CHOOSE_OPTION);
 
                     menu.showCarFields(useConditional);
-                    int field = InputUtils.readIntInRange(scanner, ConsoleMenu.CHOOSE_OPTION, useConditional ? 3 : 4);
+                    int field = InputUtils.readIntInRange(scanner, menu.CHOOSE_OPTION, useConditional ? 3 : 4);
 
                     CarComparedField comparedField = null;
                     switch (field) {
@@ -84,7 +87,7 @@ public class ConsoleApp {
                     }
                 }
 
-                case 6 -> {
+                case 4 -> {
 
                     scanner.nextLine();
 
@@ -96,7 +99,7 @@ public class ConsoleApp {
                     System.out.println("\nThis car is found in collection: " + count + " times");
                 }
 
-                case 7 -> {
+                case 5 -> {
 
                     if (cars.isEmpty()) {
 
@@ -104,6 +107,12 @@ public class ConsoleApp {
                     }
 
                     dataExporter.export(cars);
+                }
+
+                case 9 -> {
+
+                    cars.clear();
+                    System.out.println("The cars have been cleared");
                 }
 
                 case 0 -> {
