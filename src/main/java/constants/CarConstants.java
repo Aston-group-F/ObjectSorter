@@ -1,7 +1,9 @@
 package constants;
 
 import java.time.LocalDateTime;
-
+/**
+ * Contains constants used for car validation.
+ */
 public final class CarConstants {
 
     private CarConstants() { }

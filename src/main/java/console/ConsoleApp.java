@@ -12,7 +12,10 @@ import model.*;
 import sorting.comparator.CarComparedField;
 import sorting.factory.SortStrategyFactory;
 import utils.InputUtils;
-
+/**
+ * Represents the main console application responsible for interaction with the user.
+ * Provides menu handling, loading, sorting, searching and exporting car collections.
+ */
 public class ConsoleApp {
     private final Scanner scanner = new Scanner(System.in);
     private final ConsoleMenu menu = new ConsoleMenu();
@@ -23,7 +26,11 @@ public class ConsoleApp {
     private final DataExporter dataExporter = new FileDataExporter("src/main/resources/exportedCars.txt");
 
     private final CarList cars = new CarList();
-
+    /**
+     * Starts the console application.
+     *
+     * @throws Exception if an unexpected error occurs during application execution
+     */
     public void run() throws Exception {
         System.out.println("\nWelcome to Car Collection App");
 
