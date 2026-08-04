@@ -14,9 +14,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Loads car data from a file.
+ * <p>
+ * Each non-empty line of the file is parsed into a {@link Car} object.
+ * Invalid lines are skipped during the loading process.
+ */
 public class FileDataLoader extends AbstractDataLoader{
+
+    /**
+     * Path to the file containing car data.
+     */
     private final String filePath;
 
+    /**
+     * Creates a new data loader that reads car data from the specified file.
+     *
+     * @param filePath the path to the input file
+     * @throws IllegalArgumentException if the file path is {@code null} or empty
+     */
     public FileDataLoader(String filePath) {
         if(filePath == null || filePath.isEmpty()) {
             throw new IllegalArgumentException("File path cannot be null or empty");
@@ -24,6 +40,14 @@ public class FileDataLoader extends AbstractDataLoader{
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the specified number of cars from the file.
+     *
+     * @param carsCount the number of cars to load
+     * @return a {@link CarList} containing the loaded cars
+     * @throws IllegalArgumentException if the file contains fewer cars than requested
+     * @throws RuntimeException if an error occurs while reading the file
+     */
     @Override
     protected CarList loadData(int carsCount) {
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
@@ -47,6 +71,15 @@ public class FileDataLoader extends AbstractDataLoader{
         }
     }
 
+    /**
+     * Parses a single line of the input file into a {@link Car}.
+     * <p>
+     * Returns {@code null} if the line has an invalid format or contains
+     * invalid numeric values.
+     *
+     * @param line the line to parse
+     * @return the parsed {@link Car}, or {@code null} if the line cannot be parsed
+     */
     private Car parseLine(String line) {
         String[] parts = line.split(FileUtils.SEPARATOR);
         if (parts.length >= 3) {

@@ -5,6 +5,10 @@ import model.Car;
 import java.util.Comparator;
 import java.util.function.ToIntFunction;
 
+/**
+ * Represents the available fields that can be used
+ * to compare and sort {@link Car} objects.
+ */
 public enum CarComparedField implements ComparedField<Car> {
     MODEL {
         @Override

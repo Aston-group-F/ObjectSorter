@@ -10,8 +10,17 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Loads randomly generated car data.
+ * <p>
+ * Each generated car has a random model, power, and production year
+ * within the valid ranges defined by {@link CarConstants}.
+ */
 public class RandomDataLoader extends AbstractDataLoader{
 
+    /**
+     * Predefined list of car models used for random generation.
+     */
     private static final List<String> CARS_MODELS_LIST = List.of( "Toyota Corolla", "Ford F-Series",
             "Toyota RAV4", "Honda CR-V", "Toyota Camry", "Hyundai Solaris", "Chevrolet Niva",
             "Honda Civic", "Volkswagen Tiguan", "Tesla Model Y", "Tesla Model 3", "Honda Accord",
@@ -19,6 +28,12 @@ public class RandomDataLoader extends AbstractDataLoader{
             "Subaru Forester", "Ford Explorer", "Mercedes-Benz G-Class", "BMW 3 Series", "Mercedes-Benz C-Class",
             "Audi A4", "Ford Escape", "Volkswagen Polo", "Renault Logan", "MINI Cooper" );
 
+    /**
+     * Generates the specified number of random cars.
+     *
+     * @param carsCount the number of cars to generate
+     * @return a {@link CarList} containing randomly generated cars
+     */
     @Override
     protected CarList loadData(int carsCount) {
         return Stream.generate(this::generateCar)
@@ -26,6 +41,11 @@ public class RandomDataLoader extends AbstractDataLoader{
                 .collect(Collectors.toCollection(CarList::new));
     }
 
+    /**
+     * Generates a single random car.
+     *
+     * @return a randomly generated {@link Car}
+     */
     private Car generateCar() {
         ThreadLocalRandom rand = ThreadLocalRandom.current();
         return Car.builder()
